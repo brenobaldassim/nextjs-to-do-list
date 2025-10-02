@@ -1,8 +1,8 @@
 import { z } from "zod";
-import fakeORM from "../fakeORM";
+import fakeORM from "../repository/fakeORM";
 import { publicProcedure, router } from "../trpc";
 
-export const todoRouter = router({
+export const tarefaRouter = router({
   all: publicProcedure.query(async () => {
     return await fakeORM.tarefa.findMany({
       orderBy: {

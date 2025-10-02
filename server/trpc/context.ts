@@ -1,11 +1,11 @@
-import type { CreateNextContextOptions } from "@trpc/server/adapters/next";
+import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
 
 /**
  * Defines your inner context shape.
  * Add fields here that the inner context brings.
  */
 export interface CreateInnerContextOptions
-  extends Partial<CreateNextContextOptions> {}
+  extends Partial<FetchCreateContextFnOptions> {}
 
 /**
  * Inner context. Will always be available in your procedures, in contrast to the outer context.
@@ -27,13 +27,13 @@ export async function createInnerTRPCContext(opts?: CreateInnerContextOptions) {
  *
  * @see https://trpc.io/docs/v11/context#inner-and-outer-context
  */
-export const createTRPCContext = async (opts?: CreateNextContextOptions) => {
+export const createTRPCContext = async (opts: FetchCreateContextFnOptions) => {
   const innerContext = await createInnerTRPCContext({
-    req: opts?.req,
+    req: opts.req,
+    info: opts.info,
   });
 
   return {
     ...innerContext,
-    req: opts?.req,
   };
 };

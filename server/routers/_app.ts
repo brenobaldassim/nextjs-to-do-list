@@ -1,8 +1,8 @@
 import { publicProcedure, router } from "../trpc";
-import { todoRouter } from "./todo";
+import { tarefaRouter } from "./tarefa";
 
 export const appRouter = router({
-  todo: todoRouter,
+  tarefa: tarefaRouter,
 });
 
 export type AppRouter = typeof appRouter;
