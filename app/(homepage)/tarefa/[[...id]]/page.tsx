@@ -52,7 +52,7 @@ export default function TarefaPage() {
           </button>
         </div>
 
-        <div className="bg-dark-secondary p-8 rounded-lg shadow-lg border border-light-secondary/20">
+        <div className="bg-dark-secondary p-8 rounded-lg shadow-lg border-2 border-light-secondary/20">
           <h1 className="text-3xl font-bold mb-6 text-light-primary">
             {isEditMode ? "Editar Tarefa" : "Nova Tarefa"}
           </h1>

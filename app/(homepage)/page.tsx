@@ -1,9 +1,7 @@
 import { trpc } from "@/server/trpc/server";
 import Link from "next/link";
 import { Plus } from "lucide-react";
-
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+import { TarefaItem } from "./components/TarefaItem";
 
 export default async function Home() {
   const tarefas = await trpc.tarefa.all();
@@ -24,30 +22,7 @@ export default async function Home() {
         </div>
         <div className="space-y-3">
           {tarefas.map((tarefa) => (
-            <div
-              key={tarefa.id}
-              className="bg-dark-secondary p-4 rounded-lg shadow-lg border border-light-secondary/20"
-            >
-              <div className="flex justify-between items-start">
-                <div className="flex-1">
-                  <h2 className="text-xl font-semibold text-light-primary">
-                    {tarefa.titulo}
-                  </h2>
-                  <p className="text-light-secondary mt-1">
-                    {tarefa.descricao}
-                  </p>
-                  <p className="text-sm text-light-secondary/60 mt-2">
-                    {new Date(tarefa.dataCriacao).toISOString().split("T")[0]}
-                  </p>
-                </div>
-                <Link
-                  href={`/tarefa/${tarefa.id}`}
-                  className="ml-4 text-light-secondary hover:text-light-primary font-medium text-sm transition-colors"
-                >
-                  Editar
-                </Link>
-              </div>
-            </div>
+            <TarefaItem key={tarefa.id} tarefa={tarefa} />
           ))}
         </div>
       </div>
