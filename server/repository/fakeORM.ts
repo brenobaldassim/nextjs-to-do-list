@@ -2,12 +2,10 @@ import type {
   Tarefa,
   TarefaService,
   CreateTarefaInput,
-  UpdateTarefaInput,
-  DeleteTarefaInput,
   FindManyTarefaInput,
 } from "./types";
 
-class fakeORM {
+class FakeORM {
   private tarefas: Tarefa[] = [];
 
   public tarefa: TarefaService = {
@@ -33,27 +31,14 @@ class fakeORM {
     findById: async (id: string) => {
       return Promise.resolve(this.tarefas.find((tarefa) => tarefa.id === id));
     },
-    update: async (id: string, updatedTarefa: UpdateTarefaInput) => {
-      const tarefa = this.tarefas.find((tarefa) => tarefa.id === id);
-
-      if (!tarefa) {
-        throw new Error("Tarefa não encontrada");
-      }
-
-      const newTarefa = { ...tarefa, ...updatedTarefa };
-
+    update: async (updatedTarefa: Tarefa) => {
       this.tarefas = this.tarefas.map((tarefa) =>
-        tarefa.id === id ? newTarefa : tarefa
+        tarefa.id === updatedTarefa.id ? updatedTarefa : tarefa
       );
-      return Promise.resolve(newTarefa);
+      return Promise.resolve(updatedTarefa);
     },
-    delete: async ({ where }: DeleteTarefaInput) => {
-      const { id } = where;
-      const tarefa = this.tarefas.find((tarefa) => tarefa.id === id);
-      if (!tarefa) {
-        throw new Error("Tarefa não encontrada");
-      }
-      this.tarefas = this.tarefas.filter((tarefa) => tarefa.id !== id);
+    delete: async (tarefa: Tarefa) => {
+      this.tarefas = this.tarefas.filter((t) => t.id !== tarefa.id);
       return Promise.resolve(tarefa);
     },
     deleteMany: async () => {
@@ -63,4 +48,15 @@ class fakeORM {
   };
 }
 
-export default new fakeORM();
+// Use globalThis to ensure a single instance across HMR and different contexts
+const globalForORM = globalThis as unknown as {
+  fakeORM: FakeORM | undefined;
+};
+
+const fakeORM = globalForORM.fakeORM ?? new FakeORM();
+
+if (process.env.NODE_ENV !== "production") {
+  globalForORM.fakeORM = fakeORM;
+}
+
+export default fakeORM;
