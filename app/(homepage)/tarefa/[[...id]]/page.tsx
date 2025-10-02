@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useTarefaForm } from "../useTarefaForm";
+import { useTarefaForm } from "../hooks/useTarefaForm";
 import { LoadingState } from "../components/LoadingState";
 import { ErrorState } from "../components/ErrorState";
 import { TarefaForm } from "../components/TarefaForm";

@@ -16,6 +16,8 @@ export type FindManyTarefaInput = {
   orderBy: {
     dataCriacao: "asc" | "desc";
   };
+  cursor?: string;
+  limit?: number;
 };
 
 export type TarefaService = {

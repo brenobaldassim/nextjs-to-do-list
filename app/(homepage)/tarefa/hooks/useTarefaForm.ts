@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { trpc } from "@/app/api/trpc/client";
-import { tarefaSchema, TarefaFormData } from "./validation";
+import { tarefaSchema, TarefaFormData } from "../validation";
 import toast from "react-hot-toast";
 
 interface UseTarefaFormProps {

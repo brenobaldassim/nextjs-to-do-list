@@ -19,6 +19,34 @@ export const tarefaRouter = router({
     }
     return tarefas;
   }),
+  infinite: publicProcedure
+    .input(
+      z.object({
+        limit: z.number().min(1).max(100).default(10),
+        cursor: z.string().optional(),
+      })
+    )
+    .query(async ({ input }) => {
+      const { cursor, limit } = input;
+      const tarefas = await fakeORM.tarefa.findMany({
+        orderBy: {
+          dataCriacao: "asc",
+        },
+        cursor,
+        limit: limit + 1, // Fetch one extra to determine if there's a next page
+      });
+
+      let nextCursor: string | undefined = undefined;
+      if (tarefas.length > limit) {
+        const nextItem = tarefas.pop(); // Remove the extra item
+        nextCursor = nextItem?.id;
+      }
+
+      return {
+        items: tarefas,
+        nextCursor,
+      };
+    }),
   byId: publicProcedure
     .input(z.object({ id: z.string().min(1) }))
     .query(async ({ input }) => {
