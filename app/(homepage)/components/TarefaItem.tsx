@@ -17,8 +17,10 @@ export const TarefaItem: React.FC<TarefaItemProps> = ({ tarefa }) => {
           <h2 className="text-xl font-semibold text-light-primary">
             {tarefa.titulo}
           </h2>
-          <p className="text-light-secondary mt-1">{tarefa.descricao}</p>
-          <p className="text-sm text-light-secondary/60 mt-2">
+          <p className="text-light-secondary mt-1 truncate max-w-[200px] md:max-w-[400px] lg:max-w-[500px]">
+            {tarefa.descricao}
+          </p>
+          <p className="text-sm text-light-secondary/60 mt-2  ">
             {new Date(tarefa.dataCriacao).toISOString().split("T")[0]}
           </p>
         </div>

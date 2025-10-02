@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { trpc } from "@/app/api/trpc/client";
 import { tarefaSchema, TarefaFormData } from "./validation";
+import toast from "react-hot-toast";
 
 interface UseTarefaFormProps {
   tarefaId?: string;
@@ -29,25 +30,27 @@ export function useTarefaForm({ tarefaId, isEditMode }: UseTarefaFormProps) {
 
   const createTarefa = trpc.tarefa.add.useMutation({
     onSuccess: async (data) => {
-      alert(`Tarefa criada com sucesso: ${data.titulo}`);
+      toast.success(`Tarefa criada com sucesso: ${data.titulo}`);
       await utils.tarefa.all.invalidate();
+      await utils.tarefa.infinite.invalidate();
       router.push("/");
       router.refresh();
     },
     onError: (error) => {
-      alert(`Erro ao criar tarefa: ${error.message}`);
+      toast.error(`Erro ao criar tarefa: ${error.message}`);
     },
   });
 
   const updateTarefa = trpc.tarefa.edit.useMutation({
     onSuccess: async () => {
-      alert("Tarefa atualizada com sucesso!");
+      toast.success("Tarefa atualizada com sucesso!");
       await utils.tarefa.all.invalidate();
+      await utils.tarefa.infinite.invalidate();
       router.push("/");
       router.refresh();
     },
     onError: (error) => {
-      alert(`Erro ao atualizar tarefa: ${error.message}`);
+      toast.error(`Erro ao atualizar tarefa: ${error.message}`);
     },
   });
 

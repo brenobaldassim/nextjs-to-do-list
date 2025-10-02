@@ -4,6 +4,7 @@ import { Trash2 } from "lucide-react";
 import { trpc } from "@/app/api/trpc/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface DeleteTarefaButtonProps {
   tarefaId: string;
@@ -14,23 +15,40 @@ export const DeleteTarefaButton: React.FC<DeleteTarefaButtonProps> = ({
 }) => {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
+  const utils = trpc.useUtils();
   const deleteMutation = trpc.tarefa.delete.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
+      toast.success("Tarefa excluída com sucesso!");
+      await utils.tarefa.infinite.invalidate();
       router.refresh();
       setIsDeleting(false);
     },
     onError: (error) => {
       console.error("Error deleting tarefa:", error);
-      alert("Erro ao excluir tarefa");
+      toast.error("Erro ao excluir tarefa");
       setIsDeleting(false);
     },
   });
 
   const handleDelete = async () => {
-    if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
-      setIsDeleting(true);
-      deleteMutation.mutate({ id: tarefaId });
-    }
+    toast
+      .promise(
+        new Promise((resolve, reject) => {
+          if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
+            setIsDeleting(true);
+            deleteMutation.mutate({ id: tarefaId });
+            resolve(true);
+          } else {
+            reject();
+          }
+        }),
+        {
+          loading: "Excluindo...",
+          success: () => "",
+          error: () => "",
+        }
+      )
+      .catch(() => {});
   };
 
   return (

@@ -1,11 +1,11 @@
-import { trpc } from "@/server/trpc/server";
 import Link from "next/link";
 import { Plus } from "lucide-react";
-import { TarefaItem } from "./components/TarefaItem";
+import { TarefaList } from "./components/TarefaList";
 
-export default async function Home() {
-  const tarefas = await trpc.tarefa.all();
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
+export default function Home() {
   return (
     <div className="font-sans min-h-screen p-8 bg-dark-primary">
       <div className="max-w-2xl mx-auto">
@@ -20,11 +20,7 @@ export default async function Home() {
             <Plus size={16} /> Nova Tarefa
           </Link>
         </div>
-        <div className="space-y-3">
-          {tarefas.map((tarefa) => (
-            <TarefaItem key={tarefa.id} tarefa={tarefa} />
-          ))}
-        </div>
+        <TarefaList />
       </div>
     </div>
   );
