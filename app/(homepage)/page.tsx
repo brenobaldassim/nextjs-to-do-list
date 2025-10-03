@@ -5,7 +5,7 @@ import { TarefaList } from "./components/TarefaList";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <div className="font-sans min-h-screen p-8 bg-dark-primary">
       <div className="max-w-2xl mx-auto">
@@ -24,4 +24,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Home;

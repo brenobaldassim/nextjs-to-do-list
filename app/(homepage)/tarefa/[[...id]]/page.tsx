@@ -5,9 +5,9 @@ import { useTarefaForm } from "../hooks/useTarefaForm";
 import { LoadingState } from "../components/LoadingState";
 import { ErrorState } from "../components/ErrorState";
 import { TarefaForm } from "../components/TarefaForm";
-import { ArrowLeft, ChevronLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
-export default function TarefaPage() {
+const TarefaPage: React.FC = () => {
   const router = useRouter();
   const { id } = useParams();
 
@@ -70,4 +70,6 @@ export default function TarefaPage() {
       </div>
     </div>
   );
-}
+};
+
+export default TarefaPage;

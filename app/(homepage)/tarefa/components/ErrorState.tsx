@@ -1,9 +1,13 @@
+/*
+ * @param message - the message to display
+ * @param onBack - the function to run when the button is clicked
+ */
 interface ErrorStateProps {
   message: string;
   onBack: () => void;
 }
 
-export function ErrorState({ message, onBack }: ErrorStateProps) {
+export const ErrorState: React.FC<ErrorStateProps> = ({ message, onBack }) => {
   return (
     <div className="font-sans min-h-screen p-8 bg-dark-primary">
       <div className="max-w-2xl mx-auto">
@@ -19,4 +23,4 @@ export function ErrorState({ message, onBack }: ErrorStateProps) {
       </div>
     </div>
   );
-}
+};

@@ -20,6 +20,7 @@ export type FindManyTarefaInput = {
   limit?: number;
 };
 
+// contrat for the tarefa service
 export type TarefaService = {
   create: (tarefa: CreateTarefaInput) => Promise<Tarefa>;
   findMany: (findManyTarefaInput: FindManyTarefaInput) => Promise<Tarefa[]>;

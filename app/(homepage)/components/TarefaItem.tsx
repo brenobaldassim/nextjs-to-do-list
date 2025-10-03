@@ -2,6 +2,9 @@ import { Tarefa } from "@/server/repository/types";
 import Link from "next/link";
 import { DeleteTarefaButton } from "./DeleteTarefaButton";
 
+/*
+ * @param tarefa - the tarefa to display
+ */
 interface TarefaItemProps {
   tarefa: Tarefa;
 }

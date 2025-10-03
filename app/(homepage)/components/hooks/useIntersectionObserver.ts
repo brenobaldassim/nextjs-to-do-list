@@ -1,5 +1,10 @@
 import { useEffect, useRef } from "react";
 
+/*
+ * @param onIntersect - run when element is visible
+ * @param enabled - if the observer should be enabled
+ * @param threshold - percentage of the element that must be visible to trigger the callback
+ */
 interface UseIntersectionObserverOptions {
   onIntersect: () => void;
   enabled: boolean;
@@ -8,16 +13,20 @@ interface UseIntersectionObserverOptions {
 
 /**
  * Custom hook that handles intersection observer logic for infinite scroll
+ * When the element is visible and it is within the threshold, the callback is triggered
  */
-export function useIntersectionObserver({
+export const useIntersectionObserver = ({
   onIntersect,
   enabled,
   threshold = 0.1,
-}: UseIntersectionObserverOptions) {
+}: UseIntersectionObserverOptions) => {
+  // reference to the element that will be observed
   const targetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!targetRef.current || !enabled) return;
+    if (!targetRef.current || !enabled) {
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -37,4 +46,4 @@ export function useIntersectionObserver({
   }, [enabled, onIntersect, threshold]);
 
   return targetRef;
-}
+};

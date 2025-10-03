@@ -1,5 +1,14 @@
 import { TarefaFormData } from "../validation";
 
+/*
+ * @param formData - the form data
+ * @param errors - the errors
+ * @param isPending - if the form is pending
+ * @param isEditMode - if the form is in edit mode
+ * @param onSubmit - the function to run when the form is submitted
+ * @param onChange - the function to run when the form is changed
+ * @param onCancel - the function to run when the form is cancelled
+ */
 interface TarefaFormProps {
   formData: TarefaFormData;
   errors: Partial<Record<keyof TarefaFormData, string>>;
@@ -12,7 +21,12 @@ interface TarefaFormProps {
   onCancel: () => void;
 }
 
-export function TarefaForm({
+/**
+ * As requested in the pdf ive cronstructed the edit form and create form together
+ * but I would recommend to split them into two different forms since they share different concepts
+ * and this break SOLID principles and could also lead to some bugs in the code
+ */
+export const TarefaForm: React.FC<TarefaFormProps> = ({
   formData,
   errors,
   isPending,
@@ -20,7 +34,7 @@ export function TarefaForm({
   onSubmit,
   onChange,
   onCancel,
-}: TarefaFormProps) {
+}) => {
   const buttonText = isPending
     ? isEditMode
       ? "Atualizando..."
@@ -90,4 +104,4 @@ export function TarefaForm({
       </div>
     </form>
   );
-}
+};

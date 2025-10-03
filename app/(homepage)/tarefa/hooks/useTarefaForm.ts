@@ -4,12 +4,21 @@ import { trpc } from "@/app/api/trpc/client";
 import { tarefaSchema, TarefaFormData } from "../validation";
 import toast from "react-hot-toast";
 
+/*
+ * @param tarefaId - the id of the tarefa
+ * @param isEditMode - if the form is in edit mode
+ */
 interface UseTarefaFormProps {
   tarefaId?: string;
   isEditMode: boolean;
 }
 
-export function useTarefaForm({ tarefaId, isEditMode }: UseTarefaFormProps) {
+/**
+ * As requested in the pdf ive cronstructed the edit form and create form together
+ * but I would recommend to split them into two different forms since they share different concepts
+ * and this break SOLID principles and could also lead to some bugs in the code
+ */
+export const useTarefaForm = ({ tarefaId, isEditMode }: UseTarefaFormProps) => {
   const router = useRouter();
   const utils = trpc.useUtils();
 
@@ -122,4 +131,4 @@ export function useTarefaForm({ tarefaId, isEditMode }: UseTarefaFormProps) {
     handleChange,
     handleSubmit,
   };
-}
+};

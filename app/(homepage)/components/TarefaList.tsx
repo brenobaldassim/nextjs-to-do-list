@@ -11,9 +11,9 @@ import { LoadMoreIndicator } from "./states/LoadMoreIndicator";
 
 /**
  * TarefaList component responsible for displaying an infinite scrolling list of tarefas.
- * - Auto-fetch logic
+ * has auto-fetch logic to fetch more data when the screen is filled
  */
-export function TarefaList() {
+export const TarefaList: React.FC = () => {
   const {
     data,
     fetchNextPage,
@@ -75,4 +75,4 @@ export function TarefaList() {
       </div>
     </>
   );
-}
+};

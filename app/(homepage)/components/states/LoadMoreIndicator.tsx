@@ -1,16 +1,21 @@
 import { Loader2 } from "lucide-react";
 
+/*
+ * @param isFetching - if the data is being fetched
+ * @param hasMore - if there is more data to fetch
+ * @param itemCount - the number of items in the list
+ */
 interface LoadMoreIndicatorProps {
   isFetching: boolean;
   hasMore: boolean;
   itemCount: number;
 }
 
-export function LoadMoreIndicator({
+export const LoadMoreIndicator: React.FC<LoadMoreIndicatorProps> = ({
   isFetching,
   hasMore,
   itemCount,
-}: LoadMoreIndicatorProps) {
+}) => {
   if (isFetching) {
     return (
       <div className="flex justify-center items-center">
@@ -31,4 +36,4 @@ export function LoadMoreIndicator({
   }
 
   return null;
-}
+};

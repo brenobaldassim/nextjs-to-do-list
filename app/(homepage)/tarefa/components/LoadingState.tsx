@@ -1,4 +1,4 @@
-export function LoadingState() {
+export const LoadingState: React.FC = () => {
   return (
     <div className="font-sans min-h-screen p-8 bg-dark-primary">
       <div className="max-w-2xl mx-auto">
@@ -8,4 +8,4 @@ export function LoadingState() {
       </div>
     </div>
   );
-}
+};

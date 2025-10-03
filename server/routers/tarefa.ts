@@ -3,6 +3,17 @@ import { z } from "zod";
 import fakeORM from "../repository/fakeORM";
 import { publicProcedure, router } from "../trpc";
 
+/**
+ * TarefaRouter is the router for the tarefas
+ * main router for our mvp application
+ *
+ * - all: get all tarefas
+ * - infinite: get all tarefas with infinite scroll
+ * - byId: get a tarefa by id
+ * - add: create a new tarefa
+ * - edit: edit a existing tarefa
+ * - delete: delete a existing tarefa by id
+ */
 export const tarefaRouter = router({
   all: publicProcedure.query(async () => {
     const tarefas = await fakeORM.tarefa.findMany({
@@ -33,7 +44,7 @@ export const tarefaRouter = router({
           dataCriacao: "asc",
         },
         cursor,
-        limit: limit + 1, // Fetch one extra to determine if there's a next page
+        limit: limit + 1, // fetch one extra to determine if there's a next page
       });
 
       let nextCursor: string | undefined = undefined;

@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
+/*
+ * @param tarefaId - the id of the tarefa to delete
+ */
 interface DeleteTarefaButtonProps {
   tarefaId: string;
 }
@@ -19,6 +22,7 @@ export const DeleteTarefaButton: React.FC<DeleteTarefaButtonProps> = ({
   const deleteMutation = trpc.tarefa.delete.useMutation({
     onSuccess: async () => {
       toast.success("Tarefa excluída com sucesso!");
+      // invalidate the infinite query to fetch the new data
       await utils.tarefa.infinite.invalidate();
       router.refresh();
       setIsDeleting(false);
@@ -34,6 +38,7 @@ export const DeleteTarefaButton: React.FC<DeleteTarefaButtonProps> = ({
     toast
       .promise(
         new Promise((resolve, reject) => {
+          // This way user cant delete by accident
           if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
             setIsDeleting(true);
             deleteMutation.mutate({ id: tarefaId });
