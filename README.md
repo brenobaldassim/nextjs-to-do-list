@@ -19,8 +19,8 @@ A modern task management application built with Next.js 15, tRPC, and TypeScript
 
 Before you begin, ensure you have the following installed on your system:
 
-- **Node.js** (version 20 or higher) - [Download here](https://nodejs.org/)
-- **npm** (comes with Node.js) or **pnpm** or **yarn**
+- **Node.js** (version 20 or higher)
+- **npm** or **pnpm** or **yarn**
 
 To check if you have Node.js installed, run:
 ```bash
@@ -30,7 +30,7 @@ npm --version
 
 ## Installation
 
-1. **Clone the repository** (if you haven't already):
+1. **Clone the repository** :
 ```bash
 git clone https://github.com/brenobaldassim/nextjs-todo-list
 cd nextjs-todo-list
