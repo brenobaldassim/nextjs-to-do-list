@@ -32,7 +32,7 @@ npm --version
 
 1. **Clone the repository** (if you haven't already):
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/brenobaldassim/nextjs-todo-list
 cd nextjs-todo-list
 ```
 
