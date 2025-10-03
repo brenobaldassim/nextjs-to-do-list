@@ -49,8 +49,9 @@ export const tarefaRouter = router({
 
       let nextCursor: string | undefined = undefined;
       if (tarefas.length > limit) {
-        const nextItem = tarefas.pop(); // Remove the extra item
-        nextCursor = nextItem?.id;
+        tarefas.pop(); // Remove the extra item
+        // get the last item id to know where to start the next query
+        nextCursor = tarefas[tarefas.length - 1]?.id;
       }
 
       return {
